@@ -5,12 +5,18 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
+    <div class="jumbotron">
+        <h1>INSTA TIMELINE</h1>
+        <p class="lead">소식 공유하기</p>
+        <p>
+            <a class="btn btn-lg btn-secondary" href="/posts/new">소식 공유하기</a>
+            <a class="btn btn-lg btn-secondary" href="/posts">소식 보기</a>
+        </p>
+    </div>
 
-
-
-    <div th:replace="fragments/footer :: footer" />
+    <div th:replace="fragments/footer :: footer"/>
 
 </div> <!-- /container -->
 

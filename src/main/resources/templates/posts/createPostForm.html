@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div class="form">
+        <form th:action="@{/posts/new}" th:object="${form}" method="post" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label th:for="image" class="">공유하고 싶은 사진을 업로드하세요</label>
+                <input type="file" th:field="*{image}" class="form-control-file" accept="image/png, image/jpeg, image/jpg"/>
+            </div>
+            <div class="form-group row">
+                <img style="width: 200px; border: 1px solid black" id="preview-img"
+                     alt="preview" src="https://dummyimage.com/200x200/ffffff/000000.png&text=preview+image" />
+            </div>
+            <div class="form-group row">
+                <label th:for="contents">소식을 입력하세요</label>
+                <textarea class="form-control" th:field="*{contents}" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">공유하기</button>
+        </form>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+
+    <script th:inline="javascript">
+        const img = document.querySelector("#preview-img");;
+        function showImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = e => {
+                    img.src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+           document.querySelector(".form-control-file").addEventListener("change", e => {
+               showImage(e.target);
+           });
+        });
+    </script>
+
+</div> <!-- /container -->
+
+</body>
+</html>
