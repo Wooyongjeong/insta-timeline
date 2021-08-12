@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Table(name = "posts")
-public class Post {
+public class Post extends Timestamped {
 
     @Id @GeneratedValue
     private Long id;
