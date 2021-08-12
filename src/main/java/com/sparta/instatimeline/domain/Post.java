@@ -20,7 +20,11 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String contents;
 
+    @Column(nullable = false)
+    private int likeCount;
+
     @Column(nullable = true, length = 64)
     private String image;
+
 
 }
