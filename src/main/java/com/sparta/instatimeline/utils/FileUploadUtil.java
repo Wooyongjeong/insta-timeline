@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 public class FileUploadUtil {
 
-    private static Path uploadDir = Paths.get("src/main/resources/static/images/");
+    private static Path uploadDir = Paths.get("images/");
 
     public static void saveFile(PostForm form) throws IOException {
 
@@ -28,10 +28,10 @@ public class FileUploadUtil {
 
         InputStream inputStream = image.getInputStream();
         BufferedImage inputImage = ImageIO.read(inputStream);
-        BufferedImage outputImage = new BufferedImage(350, 350, inputImage.getType());
+        BufferedImage outputImage = new BufferedImage(220, 160, inputImage.getType());
 
         Graphics2D graphics = outputImage.createGraphics();
-        graphics.drawImage(inputImage, 0, 0, 350, 350, null);
+        graphics.drawImage(inputImage, 0, 0, 220, 160, null);
         graphics.dispose();
 
         Path filePath = uploadDir.resolve(username + ".jpg");
