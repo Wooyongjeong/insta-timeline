@@ -1,29 +1,42 @@
 package com.sparta.instatimeline.utils;
 
+import com.sparta.instatimeline.controller.PostForm;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class FileUploadUtil {
 
-    public static String uploadDir = "images/";
+    private static Path uploadDir = Paths.get("src/main/resources/static/images/");
 
-    public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
+    public static void saveFile(PostForm form) throws IOException {
 
-        Path uploadPath = Paths.get(uploadDir);
-
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
+        if (!Files.exists(uploadDir)) {
+            Files.createDirectories(uploadDir);
         }
 
-        InputStream inputStream = multipartFile.getInputStream();
-        Path filePath = uploadPath.resolve(fileName);
-        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        String username = form.getUsername();
+        MultipartFile image = form.getImage();
+
+        InputStream inputStream = image.getInputStream();
+        BufferedImage inputImage = ImageIO.read(inputStream);
+        BufferedImage outputImage = new BufferedImage(350, 350, inputImage.getType());
+
+        Graphics2D graphics = outputImage.createGraphics();
+        graphics.drawImage(inputImage, 0, 0, 350, 350, null);
+        graphics.dispose();
+
+        Path filePath = uploadDir.resolve(username + ".jpg");
+
+        ImageIO.write(outputImage, "jpg", new File(String.valueOf(filePath)));
 
     }
 
