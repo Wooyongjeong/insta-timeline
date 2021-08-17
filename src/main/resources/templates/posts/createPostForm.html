@@ -35,7 +35,7 @@
             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldErrorText">Incorrect data</p>
             <div class="form-group">
                 <label th:for="contents" class="label">소식을 입력하세요</label>
-                <textarea class="form-control" th:field="*{contents}" rows="4"
+                <textarea class="form-control" th:field="*{contents}" rows="4" maxlength="255"
                           th:class="${#fields.hasErrors('contents')}? 'form-control fieldError' : 'form-control'"/>
                 <p th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}" class="fieldErrorText">Incorrect data</p>
             </div>
@@ -59,7 +59,7 @@
 
                 reader.onload = evt => {
                     //username 랜덤한 아이디로 세팅
-                    document.querySelector(".username").value = makeRandomName(16);
+                    document.querySelector(".username").value = makeRandomName(12);
                     document.querySelector(".preview-img").src = evt.target.result;
                 }
 
