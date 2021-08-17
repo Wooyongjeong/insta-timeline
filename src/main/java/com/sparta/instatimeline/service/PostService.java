@@ -33,10 +33,9 @@ public class PostService {
     }
 
     public List<Post> findPosts() {
-//        LocalDateTime start = LocalDateTime.now().minusDays(1);
-//        LocalDateTime end = LocalDateTime.now();
-//        return postRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(start, end);
-        return postRepository.findAllByOrderByModifiedAtDesc();
+        LocalDateTime start = LocalDateTime.now().minusDays(1);
+        LocalDateTime end = LocalDateTime.now();
+        return postRepository.findAllByCreatedAtBetweenOrderByModifiedAtDesc(start, end);
     }
 
 }
