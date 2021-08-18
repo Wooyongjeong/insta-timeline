@@ -43,6 +43,12 @@ public class PostService {
         return postRepository.findAllByCreatedAtBetweenOrderByModifiedAtDesc(start, end);
     }
 
+    public Post findOne(Long postId) {
+        log.info("PostService findOne " + postId);
+
+        return postRepository.findById(postId).get();
+    }
+
     @Transactional
     public void update(Long postId, PostForm form) {
         log.info("PostService update " + postId);
@@ -55,18 +61,12 @@ public class PostService {
         post.setModifiedAt(LocalDateTime.now());
     }
 
-
+    @Transactional
     public Long deleteOne(Long postId) {
         log.info("PostService deleteOne " + postId);
+
         postRepository.deleteById(postId);
         return postId;
     }
-
-    public Post findOne(Long postId) {
-        log.info("PostService findOne " + postId);
-
-        return postRepository.findById(postId).get();
-    }
-
 
 }
