@@ -28,7 +28,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/new")
-    public String create(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result) throws IOException {
+    public String createPost(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result) throws IOException {
         log.info("Post create");
 
         if (result.hasErrors()) {
@@ -45,7 +45,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public String list(Model model) {
+    public String postList(Model model) {
         log.info("Post list");
 
         List<Post> posts = postService.findPosts();
@@ -81,5 +81,13 @@ public class PostController {
 
         postService.update(postId, form);
         return "redirect:/posts";
+    }
+
+    @ResponseBody
+    @DeleteMapping("/posts/{postId}")
+    public Long deletePost(@PathVariable Long postId) {
+        log.info("Post delete");
+
+        return postService.deleteOne(postId);
     }
 }
