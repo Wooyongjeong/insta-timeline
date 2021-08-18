@@ -5,9 +5,11 @@
 <body>
 
 <div class="container">
+    <a class="btn btn-outline-info float-right" href="/posts/new" style="margin-bottom: 1em;">소식 공유하기</a>
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
     <p th:if="${posts.isEmpty()}">24시간 내에 사람들이 공유한 소식이 없습니다.<br>소식을 공유해보세요!</p>
+
 
     <div class="card-columns">
         <div class="card" th:each="post : ${posts}">
@@ -28,7 +30,7 @@
                 </button>
             </div>
             <div class="card-footer">
-                <small class="text-muted" th:text="${post.getCreatedAt()}">2021-08-18 13:49:17</small>
+                <small class="text-muted" th:text="${post.lastModifiedAt()}">2021-08-18 13:49:17</small>
             </div>
         </div>
     </div>
