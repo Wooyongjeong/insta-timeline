@@ -7,8 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -29,10 +28,14 @@ public class PostController {
     }
 
     @PostMapping("/posts/new")
-    public String create(@Valid PostForm form, BindingResult result) throws IOException {
+    public String create(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result) throws IOException {
         log.info("Post create");
 
         if (result.hasErrors()) {
+            log.info("Post create hasErrors");
+            result.getAllErrors().forEach(
+                    (error) -> log.info(error.toString())
+            );
             return "posts/createPostForm";
         }
 
@@ -44,8 +47,39 @@ public class PostController {
     @GetMapping("/posts")
     public String list(Model model) {
         log.info("Post list");
+
         List<Post> posts = postService.findPosts();
         model.addAttribute("posts", posts);
         return "posts/postList";
+    }
+
+    @GetMapping("/posts/{postId}/edit")
+    public String updateForm(@PathVariable Long postId, Model model) {
+        log.info("Post update form");
+
+        Post post = postService.findOne(postId);
+        PostForm form = new PostForm();
+        form.setId(post.getId());
+        form.setUsername(post.getUsername());
+        form.setContents(post.getContents());
+
+        model.addAttribute("postForm", form);
+        return "posts/updatePostForm";
+    }
+
+    @PostMapping("/posts/{postId}/edit")
+    public String updatePost(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result, @PathVariable Long postId) {
+        log.info("Post update");
+
+        if (result.hasErrors()) {
+            log.info("Post update hasErrors");
+            result.getAllErrors().forEach(
+                    (error) -> log.info(error.toString())
+            );
+            return "posts/updatePostForm";
+        }
+
+        postService.update(postId, form);
+        return "redirect:/posts";
     }
 }
