@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 
 @Controller
@@ -85,7 +86,7 @@ public class PostController {
 
     @ResponseBody
     @DeleteMapping("/posts/{postId}")
-    public Long deletePost(@PathVariable Long postId) {
+    public Long deletePost(@PathVariable Long postId) throws NoSuchFileException {
         log.info("Post delete");
 
         return postService.deleteOne(postId);
