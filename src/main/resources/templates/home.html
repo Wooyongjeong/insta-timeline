@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
-</head>
-<body>
+<head th:replace="fragments/header :: header"/>
+<style>
+    .jumbotron {
+        background-image: url("https://fischerinstitute.com/wp-content/uploads/2013/05/instagram-background.jpg");
+        background-size: cover;
+        height: 100%;
+    }
+    .jumbotron h1, .jumbotron p {
+        color: white;
+    }
 
+</style>
+<body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
     <div class="jumbotron">
         <h1>INSTA TIMELINE</h1>
-        <p class="lead">소식 공유하기</p>
+        <p class="lead">공유하고 싶은 소식을 올리고,<br>사람들의 소식을 확인해보세요</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/posts/new">소식 공유하기</a>
-            <a class="btn btn-lg btn-secondary" href="/posts">소식 보기</a>
+            <a class="btn btn-lg btn-info" href="/posts/new">소식 공유하기</a>
+            <a class="btn btn-lg btn-success" href="/posts">소식 보기</a>
         </p>
     </div>
 
