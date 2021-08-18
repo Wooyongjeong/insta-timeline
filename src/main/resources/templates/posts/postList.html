@@ -24,7 +24,8 @@
             <div style="margin: 1em;">
                 <a th:href="@{|/posts/${post.getId()}/edit|}" href="#" class="btn btn-outline-primary"
                    style="margin-right: 1em;">수정</a>
-                <a href="#" class="btn btn-outline-danger" th:onclick="deletePost([[${post.getId()}]]);">삭제</a>
+                <button type="button" class="btn btn-outline-danger" th:onclick="deletePost([[${post.getId()}]]);">삭제
+                </button>
             </div>
             <div class="card-footer">
                 <small class="text-muted" th:text="${post.getCreatedAt()}">2021-08-17</small>
@@ -38,7 +39,17 @@
         function deletePost(postId) {
             if (confirm('정말 이 소식을 지우시겠습니까??')) {
                 const url = "/posts/" + postId;
-                fetch(url, {method: 'delete'});
+                fetch(url, {
+                        method: 'delete',
+                        body: null
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         }
     </script>
