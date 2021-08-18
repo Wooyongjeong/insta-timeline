@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 @Getter @Setter
 public class PostForm {
 
+    private Long id;
+
     private MultipartFile image;
 
     @NotEmpty(message = "사진을 업로드해주세요")
