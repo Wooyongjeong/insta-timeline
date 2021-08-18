@@ -23,6 +23,9 @@ public class Post {
     @Column(nullable = false)
     private String username;
 
+    @Embedded
+    private Photo photo;
+
     @Column(nullable = false)
     private String contents;
 
@@ -37,8 +40,11 @@ public class Post {
     }
 
     //생성 메서드
-    public static Post createPost(String username, String contents) {
+    public static Post createPost(String username, String contents, String extension) {
+
         Post post = new Post();
+        Photo photo = new Photo(username, extension);
+        post.setPhoto(photo);
         post.setUsername(username);
         post.setContents(contents);
         post.setCreatedAt(LocalDateTime.now());
