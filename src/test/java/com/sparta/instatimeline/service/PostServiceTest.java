@@ -21,7 +21,7 @@ class PostServiceTest {
 
     @Test
     void 올린지_24시간_지난_Post_안나오는지_테스트() {
-        Post post = Post.createPost("userA", "내용입니다");
+        Post post = Post.createPost("userA", "내용입니다", "jpg");
         post.setCreatedAt(LocalDateTime.now().minusDays(2));
         post.setModifiedAt(LocalDateTime.now().minusDays(2));
 
@@ -36,7 +36,7 @@ class PostServiceTest {
 
     @Test
     void 올린지_24시간_안된_Post_나오는지_테스트() {
-        Post post = Post.createPost("userA", "내용입니다");
+        Post post = Post.createPost("userA", "내용입니다", "jpg");
 
         Post savePost = postRepository.save(post);
 
