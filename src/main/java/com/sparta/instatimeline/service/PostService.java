@@ -59,7 +59,6 @@ public class PostService {
         );
 
         post.setContents(form.getContents());
-        post.setModifiedAt(LocalDateTime.now());
     }
 
     @Transactional
