@@ -1,5 +1,7 @@
 package com.sparta.instatimeline.controller;
 
+import com.sparta.instatimeline.domain.Post;
+import com.sparta.instatimeline.repository.PostRepository;
 import com.sparta.instatimeline.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +24,11 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @GetMapping(value = "/images/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> showImage(@PathVariable String username) throws IOException {
+    @GetMapping("/images/{postId}")
+    public ResponseEntity<byte[]> showImage(@PathVariable Long postId) throws IOException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
 
-        InputStream in = imageService.getImage(username);
+        InputStream in = imageService.getImage(postId);
         ResponseEntity<byte[]> entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 
         in.close();
