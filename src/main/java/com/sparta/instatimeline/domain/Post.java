@@ -29,6 +29,17 @@ public class Post extends Timestamped {
         return this.getModifiedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", photo=" + photo +
+                ", contents='" + contents + '\'' +
+                ", modifiedAt='" + lastModifiedAt() + '\'' +
+                '}';
+    }
+
     //생성 메서드
     public static Post createPost(String username, String contents, String extension) {
         Post post = new Post();

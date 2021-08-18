@@ -41,7 +41,7 @@ public class PostService {
 
         LocalDateTime start = LocalDateTime.now().minusDays(1);
         LocalDateTime end = LocalDateTime.now();
-        return postRepository.findAllByCreatedAtBetweenOrderByModifiedAtDesc(start, end);
+        return postRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(start, end);
     }
 
     public Post findOne(Long postId) {
