@@ -35,8 +35,8 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    public String getCreatedAt() {
-        return createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public String lastModifiedAt() {
+        return modifiedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     //생성 메서드
