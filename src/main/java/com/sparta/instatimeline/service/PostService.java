@@ -74,4 +74,9 @@ public class PostService {
         return postId;
     }
 
+    public List<Post> findExpiredPosts() {
+        List<Post> expiredPosts = postRepository.findAllByModifiedAtLessThan(LocalDateTime.now().minusDays(1L));
+        return expiredPosts;
+    }
+
 }
