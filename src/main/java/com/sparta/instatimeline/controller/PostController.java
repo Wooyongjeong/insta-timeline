@@ -23,20 +23,13 @@ public class PostController {
 
     @GetMapping("/posts/new")
     public String createForm(Model model) {
-        log.info("Post create form");
         model.addAttribute("postForm", new PostForm());
         return "posts/createPostForm";
     }
 
     @PostMapping("/posts/new")
     public String createPost(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result) throws IOException {
-        log.info("Post create");
-
         if (result.hasErrors()) {
-            log.info("Post create hasErrors");
-            result.getAllErrors().forEach(
-                    (error) -> log.info(error.toString())
-            );
             return "posts/createPostForm";
         }
 
@@ -47,8 +40,6 @@ public class PostController {
 
     @GetMapping("/posts")
     public String postList(Model model) {
-        log.info("Post list");
-
         List<Post> posts = postService.findPosts();
         model.addAttribute("posts", posts);
         return "posts/postList";
@@ -56,8 +47,6 @@ public class PostController {
 
     @GetMapping("/posts/{postId}/edit")
     public String updateForm(@PathVariable Long postId, Model model) {
-        log.info("Post update form");
-
         Post post = postService.findOne(postId);
         PostForm form = new PostForm();
         form.setId(post.getId());
@@ -70,13 +59,7 @@ public class PostController {
 
     @PostMapping("/posts/{postId}/edit")
     public String updatePost(@ModelAttribute("postForm") @Valid PostForm form, BindingResult result, @PathVariable Long postId) {
-        log.info("Post update");
-
         if (result.hasErrors()) {
-            log.info("Post update hasErrors");
-            result.getAllErrors().forEach(
-                    (error) -> log.info(error.toString())
-            );
             return "posts/updatePostForm";
         }
 
@@ -87,8 +70,6 @@ public class PostController {
     @ResponseBody
     @DeleteMapping("/posts/{postId}")
     public Long deletePost(@PathVariable Long postId) throws NoSuchFileException {
-        log.info("Post delete");
-
         return postService.deleteOne(postId);
     }
 }

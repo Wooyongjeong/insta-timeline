@@ -24,8 +24,6 @@ public class PostService {
 
     @Transactional
     public Long savePost(PostForm form) throws IOException {
-        log.info("PostService savePost");
-
         String extension = PhotoUtil.savePhoto(form);
 
         String username = form.getUsername();
@@ -37,8 +35,6 @@ public class PostService {
     }
 
     public List<Post> findPosts() {
-        log.info("PostService findPosts");
-
         LocalDateTime start = LocalDateTime.now().minusDays(1);
         LocalDateTime end = LocalDateTime.now();
         return postRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(start, end);
@@ -52,8 +48,6 @@ public class PostService {
 
     @Transactional
     public void update(Long postId, PostForm form) {
-        log.info("PostService update " + postId);
-
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 소식이 존재하지 않습니다.")
         );
@@ -63,8 +57,6 @@ public class PostService {
 
     @Transactional
     public Long deleteOne(Long postId) throws NoSuchFileException {
-        log.info("PostService deleteOne " + postId);
-
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 소식이 존재하지 않습니다.")
         );
