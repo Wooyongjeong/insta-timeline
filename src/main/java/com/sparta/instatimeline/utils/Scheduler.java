@@ -1,7 +1,7 @@
 package com.sparta.instatimeline.utils;
 
 import com.sparta.instatimeline.domain.Post;
-import com.sparta.instatimeline.service.PostService;
+import com.sparta.instatimeline.service.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class Scheduler {
 
-    private final PostService postService;
+    private final PostServiceImpl postService;
 
     @Scheduled(cron = "0 0 0/1 * * *")
     public void delete() throws InterruptedException, NoSuchFileException {
